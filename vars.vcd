@@ -1,0 +1,87 @@
+$date
+	Thu Sep 10 17:27:51 2020
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ns
+$end
+$scope module test $end
+$var wire 4 ! out [0:3] $end
+$var reg 1 " clk $end
+$var reg 1 # clr $end
+$var reg 4 $ in [0:3] $end
+$var reg 1 % inc $end
+$var reg 1 & jmp $end
+$var reg 1 ' oe $end
+$scope module ctr $end
+$var wire 1 " clk $end
+$var wire 1 # clr $end
+$var wire 4 ( in [0:3] $end
+$var wire 1 % inc $end
+$var wire 1 & jmp $end
+$var wire 1 ' oe $end
+$var reg 4 ) out [0:3] $end
+$var reg 4 * store [0:3] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx *
+bx )
+bx (
+0'
+0&
+0%
+bx $
+1#
+0"
+bx !
+$end
+#10
+b0 *
+1"
+#20
+0"
+b1100 $
+b1100 (
+1'
+0#
+#30
+b0 !
+b0 )
+1"
+#40
+0"
+b1010 $
+b1010 (
+1%
+#50
+b1 *
+1"
+#60
+0"
+#70
+b1 !
+b1 )
+b10 *
+1"
+#80
+0"
+1&
+0%
+#90
+b1010 *
+b10 !
+b10 )
+1"
+#100
+0"
+#110
+b1010 !
+b1010 )
+1"
+#120
+0"
