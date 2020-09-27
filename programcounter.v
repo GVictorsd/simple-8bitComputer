@@ -10,12 +10,13 @@
 		* increment(inc):Increments the value in counter  
 */
        module counter(
-		output[0:3] out,
-		input[0:3] in,
+		output[3:0] out,
+		input[3:0] in,
 		input clk,clr,oe,jmp,inc);
-	reg[0:3] store; 
+	reg[3:0] store; 
 
-//	assign out=(oe && clk)?store:8'bxxxxxxxx;	
+	assign out= oe? store: 4'hz;
+
 	always @(posedge clk)
 	begin
 		if(clr)
@@ -24,14 +25,6 @@
 			store<=in;
 		else if(inc)
                         store<=store+1;
-//		if(oe)
-//			out<=store;
 	end
 	
-	assign out=oe?store:4'bzzzz;
-/*	always @(posedge clk)
-		case(oe)
-			1: out<=store;
-		       default: out<=4'bzzzz;
-	       endcase	       
-*/	endmodule
+	endmodule

@@ -13,21 +13,21 @@
 	input[3:0] addr,
 	input clk,oa,wa,cs);
 	reg[7:0] mem[15:0];
-	reg[7:0] temp_mem;
+//	reg[7:0] temp_mem;
 	
 	tri[7:0] bus;
 		wire[7:0] data_out,data_in;
 		assign bus=oa?data_out:8'hzz;
 		assign data_in=wa?bus:8'hzz;
 
-	assign data_out=(cs & oa)?temp_mem:8'hzz;
+	assign data_out=(cs & oa)? mem[addr]/*temp_mem*/: 8'hzz;
 	
 	always@ (posedge clk)
 		if(cs & wa & (~oa))
 			mem[addr]=data_in;
 	
-	always@ (posedge clk)
+/*	always@ (posedge clk)
 		if(cs & (~wa) & oa)
 			temp_mem=mem[addr];
-	endmodule
+*/	endmodule
 	

@@ -1,10 +1,12 @@
 	`timescale 10ns/1ns
+	`include "alu.v"
+
 	module testalu;
 	reg[7:0] a,b;
-	reg clk,sumout,sub;
+	reg clk,sumout,sub,flagsin;
 	wire[7:0] out;
 	wire cf,zf;
-	alu arit(out,cf,zf,a,b,clk,sumout,sub);
+	alu arit(out,cf,zf,a,b,clk,sumout,sub,flagsin);
 
 	initial
 		clk=0;
@@ -13,8 +15,8 @@
 
 	initial 
 	begin
-		sumout<=0;sub<=0;
-		#2 a<=8'h00;b<=8'h00;
+		sumout<=0;sub<=0;flagsin<=1;
+		#2 a<=8'h38;b<=8'h21;
 		#2 sumout<=1;
 		#3 sumout<=0;
 		#1 sub<=1;

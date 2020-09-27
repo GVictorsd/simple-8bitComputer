@@ -9,25 +9,38 @@
 	
 	`include "adder.v"
 	module alu(
-	output reg[7:0] out,
-	output cf,zf,
+	output/* reg*/[7:0] out,
+	output reg carryflg,zeroflg,//cf,zf,
 	input[7:0] a,b,
-	input clk,/*clr,*/sumout,sub);
+	input clk,/*clr,*/sumout,sub,flagsin);
 	
+//	reg carryflg,zeroflg;
 	wire[7:0] sum;
 	wire[7:0] suminb;
-	wire cin;
-	adder8b addr(sum,cf,a,suminb,cin);
+	wire cin,cf1;
+	adder8b addr(sum,cf1,a,suminb,cin);
 
 	assign	suminb=sub?(~b):b;
 	assign cin=sub? 1'b1:1'b0;
-	assign zf=(sum==8'h00)? 1'b1:1'b0;
-	
+//	assign zf=(sum==8'h00)? 1'b1:1'b0;
+//	assign zf=zeroflag;
+//	assign cf=carryflag;
+
+	always@ (posedge clk)
+	begin
+		if(flagsin)
+		begin
+			carryflg <= cf1;
+			zeroflg <= (sum==8'h00)? 1'b1: 1'b0;
+		end
+	end
 //	assign sum=clr? 8'h00 : sum;	
 /*	always @(posedge clk)
 		if(clr)
 			sum<=8'h00;
 */
-	always@ (posedge clk)
-		out=sumout?sum:8'hzz;
+/*	always@ (posedge clk)
+		out <= sumout?sum:8'hzz;
+*/	assign out = sumout? sum: 8'hzz;
+
 	endmodule

@@ -1,7 +1,7 @@
 	`timescale 10ns/1ns
 	module test;
-	wire[0:3] out;
-	reg[0:3] in;
+	wire[3:0] out;
+	reg[3:0] in;
 	reg clr,oe,jmp,inc,clk;
 	counter ctr(out,in,clk,clr,oe,jmp,inc);
 	

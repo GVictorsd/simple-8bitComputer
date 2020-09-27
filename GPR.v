@@ -7,10 +7,10 @@
 	* input: 8 bit data(data_in), clk, clr, wa, oa.	
 */
 	module gpr(
-		output reg[0:7] data_out,
-		input[0:7] data_in,
+		output[7:0] data_out,
+		input[7:0] data_in,
 		input clk,clr,wa,oa);
-	reg[0:7] store;
+	reg[7:0] store;
 	
 	
 //	assign data_out = (oa && clk)?(store):8'bxxxxxxxx;
@@ -24,9 +24,10 @@
 		
 	end
 
-	always @(posedge clk)
+	assign data_out= oa? store: 8'hzz;
+/*	always @(posedge clk)
 		case(oa)
 			1: data_out<=store;
 			default: data_out<=8'bzzzzzzzz;
 		endcase
-	endmodule
+*/	endmodule
