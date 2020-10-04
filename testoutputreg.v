@@ -1,4 +1,6 @@
 	`timescale 10ns/1ns
+	`include "outputRegister.v"
+
 	module test;
 	reg[7:0] busin;
 	reg clk,clr,wa;

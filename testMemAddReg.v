@@ -1,4 +1,6 @@
 	`timescale 10ns/1ns
+	`include "memaddreg.v"
+
 	module test;
 	reg[3:0] busin;
 	reg clk, clr, wa;

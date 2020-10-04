@@ -1,4 +1,5 @@
 	`timescale 10ns/1ns
+	`include "controlunit.v"
 
 	module testcu;
 	reg[8:0] instin;

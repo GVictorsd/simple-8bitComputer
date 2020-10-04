@@ -1,5 +1,9 @@
-       `timescale 10ns/1ns
-        module test;
+	/**************** TEST-BENCH FOR ADDER.V ************/
+
+	`timescale 10ns/1ns
+	`include "adder.v"
+
+	module test;
         reg[0:7] a,b;
         reg cin;
 	wire[0:7] sum;

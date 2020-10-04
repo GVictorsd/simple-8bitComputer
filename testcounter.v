@@ -1,4 +1,6 @@
 	`timescale 10ns/1ns
+	`include "programcounter.v"
+
 	module test;
 	wire[3:0] out;
 	reg[3:0] in;

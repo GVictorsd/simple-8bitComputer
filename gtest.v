@@ -1,3 +1,6 @@
+	/*** test file to check if all modules are working correctly
+	* before implementing the control unit !! *****************/
+
 	`timescale 10ns/1ns
 
 	`include "programcounter.v"
@@ -17,11 +20,9 @@
 	initial clk=0;
 	always #2 clk=~clk;
 
-//	wire[3:0] pcout,pcin;
 	reg pcoe,pcjmp,pcinc;
-	counter pc(Bus[3:0],Bus[3:0],/*pcin,*/clk,clr,pcoe,pcjmp,pcinc);
+	counter pc(Bus[3:0],Bus[3:0],clk,clr,pcoe,pcjmp,pcinc);
 
-//	assign pcin=Bus[3:0];
 	initial begin
 		pcoe<=0;pcjmp<=0;pcinc<=0;
 	end
@@ -32,7 +33,6 @@
 
 	reg bwa,boa;
 	gpr b(Bus,Bus,clk,clr,bwa,boa);
-//	initial clr=0;
 	initial begin bwa<=0;boa<=0; end
 
 	wire cf,zf;
@@ -50,8 +50,7 @@
 	initial begin ramcs<=1; ramwa<=0; ramoa<=0; end
 
 	reg inregwa,inregoa;
-//	wire[3:0] iraddrout;
-	instreg instructionreg(Bus,clk,clr,inregwa,inregoa,Bus[3:0]/*iraddrout*/);
+	instreg instructionreg(Bus,clk,clr,inregwa,inregoa,Bus[3:0]);
 	initial begin inregwa<=0; inregoa<=0; end	
 
 	reg outregwa;
@@ -59,12 +58,11 @@
 	outputreg out(Bus,clk,clr,outregwa,display);
 	initial outregwa<=0;
 	
-/*************ram programming ******************/
+/************* Ram programming ******************/
 	reg[7:0] Buss;
 	reg[3:0] addr;
 	reg control;
 	assign Bus = control? Buss: 8'hzz;
-//	assign addrout = addr;
 
 	initial
 	begin
@@ -100,7 +98,9 @@
 		 $display($time,"%h	%h",Bus,rm.mem[mar.store]);
 		
 		 #4 ramoa<=0;
-/*************** lda**************************/
+		
+		/*************** lda**************************/
+		
 		#4 pcoe<=1;marwa<=1;
 	        #4 pcoe<=0;marwa<=0;ramoa<=1;inregwa<=1;pcinc<=1;
 		#4 ramoa<=0;inregwa<=0;pcinc<=0;inregoa<=1;marwa<=1;

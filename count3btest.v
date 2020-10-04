@@ -1,4 +1,5 @@
 	`timescale 10ns/1ns
+	
 	module test;
 	reg clk,clr;
 	wire[2:0] out;

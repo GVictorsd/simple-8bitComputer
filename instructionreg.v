@@ -8,11 +8,10 @@
 
 	module instreg(
 	input[7:0] busin,
-	input clk, clr, wa, oa,// addroa,
+	input clk, clr, wa, oa,
 	output[3:0] addrout);
 	reg[7:0] store;
 
-//	assign instout = (oa)? store[7:4]: 4'hz;
 	assign addrout = (oa)? store[3:0]: 4'hz;
 
 	always@ (posedge clk)

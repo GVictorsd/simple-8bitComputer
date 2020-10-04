@@ -12,9 +12,6 @@
 		input clk,clr,wa,oa);
 	reg[7:0] store;
 	
-	
-//	assign data_out = (oa && clk)?(store):8'bxxxxxxxx;
-	
 	always @(posedge clk)
 	begin
 		if(clr==1'b1)
@@ -25,9 +22,5 @@
 	end
 
 	assign data_out= oa? store: 8'hzz;
-/*	always @(posedge clk)
-		case(oa)
-			1: data_out<=store;
-			default: data_out<=8'bzzzzzzzz;
-		endcase
-*/	endmodule
+
+	endmodule

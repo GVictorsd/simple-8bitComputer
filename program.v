@@ -6,41 +6,39 @@
 	board bord();
 	reg[7:0] Buss;
 	reg[3:0] addr;
-	reg pmode,clr,ramoa,ramwa;
+	reg clr,ramoa,ramwa;
+	parameter
+		nop=4'h0, lda=4'h1,
+		add=4'h2, sub=4'h3,
+		sta=4'h4, ldi=4'h5,
+		jmp=4'h6, jc=4'h7,
+		jz=4'h8, out=4'he, hlt=4'hf;
 	
-//	assign bord.pmode= pmode;
-//	assign bord.clr= pmode? clr: 1'b0;
-	assign bord.ramoa= pmode? ramoa: 1'bz;
-	assign bord.ramwa= pmode? ramwa: 1'bz;
-//	reg control; replace by bord.pmode***
-	assign bord.Bus = pmode? Buss: 8'hzz;
-//	assign addrout = addr;
+	assign bord.hlt=0;	
 
 	initial
 	begin
-	//	control<=0;
-		bord.pmode<=0;
-		bord.clr<=1;
+	//**** clear all registers to reset the computer ****//
+
+		bord.clr<=1; 
 		#4 bord.clr<=0;
-		bord.pmode<=1; Buss<=8'h38; bord.mar.store<=4'he; ramoa<=0; ramwa<=1;
 
-		#3 ramwa<=0;
-		#1 Buss<=8'h23; bord.mar.store<=4'hf; ramwa<=1;
+/***************** program to add two numbers at address 0xe and 0xf ***************/
 
-		#3 ramwa<=0;
-		#1 ramwa<=1; Buss<=8'h1e; bord.mar.store<=4'h0;
-		
-		#3 ramwa<=0;
-		#1 ramwa<=1; Buss<=8'h2f; bord.mar.store<=4'h1;
+		bord.rm.mem[4'he]<= 8'h38;	//store 0x38 at 0xe in ram
+		bord.rm.mem[4'hf]<= 8'h23;	//store 0x23 at 0xf in ram
 
-		#3 ramwa<=0;
-	        #1 ramwa<=1; Buss<=8'he0; bord.mar.store<=4'h2;
+		bord.rm.mem[4'h0]<= {lda,4'he};//8'h1e;	//mem-0x0 LDA 14
+		bord.rm.mem[4'h1]<= {add,4'hf};//8'h2f;	//mem-0x1 ADD 15
+		bord.rm.mem[4'h2]<= {out,4'h0};//8'he0;	//mem-0x2 OUT
+		bord.rm.mem[4'h3]<= {hlt,4'h0};//8'hf0;	//mem-0x3 HLT
 
-		#3 ramwa<=0;
-		#1 ramwa<=1; Buss<=8'hf0; bord.mar.store<=4'h3;
-		
-		#4 ramwa<=0; bord.pmode<=0;
-		#500 $finish;
+	end
+
+	initial 
+	begin
+		$dumpfile("vars.vcd");
+		$dumpvars(0,program);
 	end
 
 	always@ (bord.display)

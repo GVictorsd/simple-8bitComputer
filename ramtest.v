@@ -1,5 +1,6 @@
 	`timescale 10ns/1ns
 	`include "ram.v"
+	
 	module test;
 	wire[7:0] bus;
 	reg[7:0] busin;
@@ -23,7 +24,8 @@
 		#1 cs<=1;oa<=1;
 		#2 oa<=0;cs<=0;
 		#4 $finish;
-*/		cs<=1;oa<=0;wa<=0;i<=8'h00;
+*/
+		cs<=1;oa<=0;wa<=0;i<=8'h00;
 		for(addr=4'h0;addr < 4'h8;addr=addr+1)
 		begin
 			wa=1;busin=i;
